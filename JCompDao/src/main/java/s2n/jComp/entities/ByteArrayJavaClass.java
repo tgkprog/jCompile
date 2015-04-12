@@ -1,4 +1,4 @@
-package s2n.clz.compile.services;
+package s2n.jComp.entities;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -8,7 +8,7 @@ import java.net.URI;
 import javax.tools.SimpleJavaFileObject;
 
 /**
- * Class with the bytecodes.
+ * Class with the bytecode of class.
  */
 public class ByteArrayJavaClass extends SimpleJavaFileObject {
 	private ByteArrayOutputStream stream;

@@ -1,4 +1,4 @@
-package s2n.clz.compile.services;
+package s2n.jComp.services;
 
 import java.util.Map;
 

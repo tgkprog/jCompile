@@ -1,6 +1,6 @@
 package external.tester;
-import s2n.clz.compile.dto.Result;
-import s2n.clz.compile.services.Tester;
+import s2n.jComp.dto.Result;
+import s2n.jComp.services.Tester;
 
 public class AddTwoTester implements Tester{
 

@@ -1,12 +1,10 @@
-package s2n.clz.compile.services;
+package s2n.jComp.services;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.tools.Diagnostic;
 import javax.tools.DiagnosticCollector;
@@ -17,6 +15,10 @@ import javax.tools.JavaFileManager;
 import javax.tools.JavaFileObject;
 import javax.tools.JavaFileObject.Kind;
 import javax.tools.ToolProvider;
+
+import s2n.jComp.entities.ByteArrayJavaClass;
+import s2n.jComp.entities.StringBuilderJavaSource;
+
 
 /**
 *
