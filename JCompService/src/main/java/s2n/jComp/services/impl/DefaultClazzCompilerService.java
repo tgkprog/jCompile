@@ -1,7 +1,6 @@
-package s2n.clz.compile.services.impl;
+package s2n.jComp.services.impl;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,14 +12,13 @@ import javax.tools.ForwardingJavaFileManager;
 import javax.tools.JavaCompiler;
 import javax.tools.JavaFileManager;
 import javax.tools.JavaFileObject;
-import javax.tools.ToolProvider;
-import javax.tools.JavaFileManager.Location;
 import javax.tools.JavaFileObject.Kind;
+import javax.tools.ToolProvider;
 
-import s2n.clz.compile.services.ByteArrayJavaClass;
-import s2n.clz.compile.services.ClazzCompilerService;
-import s2n.clz.compile.services.RamClassLoader;
-import s2n.clz.compile.services.StringBuilderJavaSource;
+import s2n.jComp.entities.ByteArrayJavaClass;
+import s2n.jComp.entities.StringBuilderJavaSource;
+import s2n.jComp.services.ClazzCompilerService;
+import s2n.jComp.services.RamClassLoader;
 
 public class DefaultClazzCompilerService implements ClazzCompilerService {
 	// if not thread safe can move to a ThreadLocal

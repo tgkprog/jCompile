@@ -1,4 +1,4 @@
-package s2n.clz.compile.dto;
+package s2n.jComp.dto;
 
 public class Result {
 

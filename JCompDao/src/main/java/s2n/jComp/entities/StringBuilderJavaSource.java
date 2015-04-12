@@ -1,4 +1,4 @@
-package s2n.clz.compile.services;
+package s2n.jComp.entities;
 
 import java.net.URI;
 

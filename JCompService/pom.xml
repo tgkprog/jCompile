@@ -1,41 +1,41 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.springframework.samples</groupId>
-  <artifactId>JCompService</artifactId>
-    <version>1</version>
-  <parent>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>JCompService</artifactId>
+
+	<parent>
 		<groupId>s2n.jcomp</groupId>
 		<artifactId>Main</artifactId>
 		<version>1</version>
 	</parent>
- 
+
 	<dependencies>
 		<dependency>
-			<groupId>neev.moh</groupId>
-			<artifactId>MohDao</artifactId>
-            <version>${project.version}</version>
+			<groupId>s2n.jcomp</groupId>
+			<artifactId>JCompDao</artifactId>
+			<version>1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
-            <scope>test</scope>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
-            <version>${mockito-all.version}</version>
+			<version>${mockito-all.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
-            <version>${javax.mail.version}</version>
+			<version>${javax.mail.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.activation</groupId>
 			<artifactId>activation</artifactId>
-            <version>${javax.activation.version}</version>
+			<version>${javax.activation.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -50,7 +50,7 @@
 		<dependency>
 			<groupId>org.apache.velocity</groupId>
 			<artifactId>velocity-tools</artifactId>
-            <version>${org.apache.velocity.version}</version>
+			<version>${org.apache.velocity.version}</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>antlr</artifactId>
@@ -65,18 +65,18 @@
 		<dependency>
 			<groupId>net.sf.ehcache</groupId>
 			<artifactId>ehcache</artifactId>
-            <version>${ehcache.version}</version>
+			<version>${ehcache.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>antlr</groupId>
 			<artifactId>antlr</artifactId>
-            <version>${antlr.version}</version>
+			<version>${antlr.version}</version>
 		</dependency>
 		<!-- Servlet -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
-            <version>${javax.servlet-api.version}</version>
+			<version>${javax.servlet-api.version}</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -138,7 +138,7 @@
 			<dependency>
 				<groupId>antlr</groupId>
 				<artifactId>antlr</artifactId>
-                <version>${antlr.version}</version>
+				<version>${antlr.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -153,5 +153,5 @@
 		</repository>
 	</repositories>
 
-	
+
 </project>

@@ -1,4 +1,4 @@
-package s2n.clz.compile.services;
+package s2n.jComp.services;
 
 public interface ClazzCompilerService {
 	Class<?> getClass(String data, String fullName);

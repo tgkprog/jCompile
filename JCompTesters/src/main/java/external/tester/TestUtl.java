@@ -2,7 +2,7 @@ package external.tester;
 
 import java.lang.reflect.Method;
 
-import s2n.clz.compile.dto.Result;
+import s2n.jComp.dto.Result;
 
 public class TestUtl {
 	public void invokeInt(Class clz, String mName, int paramIn, int expected, Result results){

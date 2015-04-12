@@ -1,6 +1,6 @@
-package s2n.clz.compile.services;
+package s2n.jComp.services;
 
-import s2n.clz.compile.dto.Result;
+import s2n.jComp.dto.Result;
 
 public interface ClazzRunTestsService {
 	Result runTests(Class target, Class<Tester> tester);
