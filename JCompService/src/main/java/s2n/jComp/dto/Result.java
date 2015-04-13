@@ -100,4 +100,15 @@ public class Result implements Serializable {
 		return this;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Result [compileErrors=").append(compileErrors).append(", compileMsgs=").append(compileMsgs).append(", status=")
+				.append(status).append(", compileStatus=").append(compileStatus).append(", testStatus=").append(testStatus)
+				.append(", testErrors=").append(testErrors).append(", testMsgs=").append(testMsgs).append("]");
+		return builder.toString();
+	}
+	
+	
+
 }

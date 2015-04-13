@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.SessionFactory;
+import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -33,9 +34,13 @@ public class DefaultCodeQuestionDao implements CodeQuestionDao {
 	@Override
 	public CodeQuestion getByCode(String code) {
 		System.out.println("getByCode2 : " + code + ", w/ template :" + template);
-		List<CodeQuestion> q = (List<CodeQuestion>) template.find("from CodeQuestion d where d.questionCode = ?", code);
-		if (q != null && q.isEmpty() == false) {
-			return q.get(0);
+		try {
+			List<CodeQuestion> q = (List<CodeQuestion>) template.find("from CodeQuestion d where d.questionCode = ?", code);
+			if (q != null && q.isEmpty() == false) {
+				return q.get(0);
+			}
+		} catch (DataAccessException e) {
+			logger.warn("Err " + e, e);
 		}
 		if(debug > 0){
 			return mockedByCode(code);
@@ -59,6 +64,7 @@ public class DefaultCodeQuestionDao implements CodeQuestionDao {
 					"1", "external.tester.S1Tester",
 					"");
 		}
+		cq.setValidatorClzName("s2n.jComp.services.utl.StrictSrcCodeValidator");
 		return cq;
 	}
 

@@ -7,7 +7,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import s2n.jComp.dto.Result;
-import s2n.jComp.services.impl.DefaultClazzCompilerServiceTest;
 
 public class SrcCodeValidators {
 	private static final Logger logger = LogManager.getLogger(SrcCodeValidators.class);
@@ -16,7 +15,7 @@ public class SrcCodeValidators {
 	private Map<String, SrcCodeValidator> valis = new HashMap<>();
 
 	
-	public SrcCodeValidators getInstance(){
+	public static SrcCodeValidators getInstance(){
 		return me;
 	}
 	

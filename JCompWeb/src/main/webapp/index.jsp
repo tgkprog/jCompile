@@ -8,11 +8,10 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Welcome</title>
+		<title>Code Compete</title>
 	</head> 
 	<body>
-	TODO<BR>
-		<c:url value="/showMessage.html" var="messageUrl" />
-		<a href="${messageUrl}">Click to enter</a>
+	
+	<a href=q.jsp?q=q1>Question 1</a>
 	</body>
 </html>

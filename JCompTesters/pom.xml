@@ -1,22 +1,23 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.springframework.samples</groupId>
-  <artifactId>JCompTesters</artifactId>
-  <version>1</version>
-  <parent>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>JCompTesters</artifactId>
+
+	<parent>
 		<groupId>s2n.jcomp</groupId>
 		<artifactId>Main</artifactId>
 		<version>1</version>
 	</parent>
-  
-	
+
+
 	<dependencies>
-	
-	<dependency>
-		<groupId>s2n.jcomp</groupId>
-		<artifactId>JCompService</artifactId>
-		<version>1</version>
-    </dependency>
+
+		<dependency>
+			<groupId>s2n.jcomp</groupId>
+			<artifactId>JCompService</artifactId>
+			<version>1</version>
+		</dependency>
 		<!-- Spring and Transactions -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -45,7 +46,7 @@
 			<version>${hibernate.version}</version>
 		</dependency>
 
-		
+
 		<!-- Test Artifacts -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -60,5 +61,5 @@
 			<scope>test</scope>
 		</dependency>
 
-	</dependencies>	
+	</dependencies>
 </project>

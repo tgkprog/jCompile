@@ -18,12 +18,10 @@ import javax.tools.ToolProvider;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import s2n.jComp.dao.impl.DefaultCodeQuestionDao;
+import s2n.jComp.dao.CodeQuestionDao;
 import s2n.jComp.dto.Result;
 import s2n.jComp.entities.ByteArrayJavaClass;
 import s2n.jComp.entities.CodeQuestion;
@@ -34,20 +32,20 @@ import s2n.jComp.services.utl.MiscUtl;
 
 @Service
 public class DefaultClazzCompilerService implements ClazzCompilerService {
-	private static final Logger logger = LogManager.getLogger(DefaultClazzCompilerServiceTest.class);
+	private static final Logger logger = LogManager.getLogger(DefaultClazzCompilerService.class);
 
 	// if not thread safe can move to a ThreadLocal or put in spring Thread scope
 	private JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 	//@Autowired
 	//@Qualifier(value = "questionsDao")
-	private DefaultCodeQuestionDao defaultCodeQuestionDao = null;
+	private CodeQuestionDao codeQuestionDao = null;
 
 	@Override
 	@Cacheable(value = "codeQCache")
 	public CodeQuestion getQuestionByCode(String code, Result result) {
 		CodeQuestion cq = null;
 		try {
-			cq = defaultCodeQuestionDao.getByCode(code);
+			cq = codeQuestionDao.getByCode(code);
 		} catch (Exception e) {
 			MiscUtl.fillError(logger, result, e, "Question get code :" + code, 1);
 
@@ -143,12 +141,12 @@ public class DefaultClazzCompilerService implements ClazzCompilerService {
 		return source;
 	}
 
-	public DefaultCodeQuestionDao getDefaultCodeQuestionDao() {
-		return defaultCodeQuestionDao;
+	public CodeQuestionDao getCodeQuestionDao() {
+		return codeQuestionDao;
 	}
 
-	public void setDefaultCodeQuestionDao(DefaultCodeQuestionDao defaultCodeQuestionDao) {
-		this.defaultCodeQuestionDao = defaultCodeQuestionDao;
+	public void setCodeQuestionDao(CodeQuestionDao defaultCodeQuestionDao) {
+		this.codeQuestionDao = defaultCodeQuestionDao;
 	}
 
 }

@@ -6,13 +6,15 @@ import s2n.jComp.dto.Result;
 
 public class MiscUtl {
 
-	public static void fillError(Logger logger, Result result, Exception e, String msg, int typ) {
+	public static void fillError(Logger logger, Result result, Throwable e, String msg, int typ) {
 		logger.warn(msg + e, e);
-		result.appendCompileErrors(msg + e + "\n");
-		if(typ == 1){
-			result.setCompileStatus(false);
-		}else{
-			result.setTestStatus(false);
+		if (result != null) {
+			result.appendCompileErrors(msg + e + "\n");
+			if (typ == 1) {
+				result.setCompileStatus(false);
+			} else {
+				result.setTestStatus(false);
+			}
 		}
 	}
 }

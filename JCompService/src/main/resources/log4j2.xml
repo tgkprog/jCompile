@@ -9,7 +9,7 @@
 			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
 		</Console>
 
-		<RollingFile append="true" name="RollingFile1" fileName="${log-path}/jCompLog.log" filePattern="${log-path}/jCompDaoTestLog-%d{yyyy-MM-dd}-%i.log">
+		<RollingFile append="true" name="RollingFile1" fileName="${log-path}/jCompLogS.log" filePattern="${log-path}/jCompDaoSLog-%d{yyyy-MM-dd}-%i.log">
 			<PatternLayout>
 				<pattern>%d %p [%t] %m%n</pattern>
 			</PatternLayout>

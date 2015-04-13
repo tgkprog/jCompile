@@ -123,6 +123,18 @@ public class CodeQuestion implements Serializable {
 		this.tstProps = tstProps;
 	}
 
+	public String getValidatorClzName() {
+		return validatorClzName;
+	}
+
+
+
+	public void setValidatorClzName(String validatorClzName) {
+		this.validatorClzName = validatorClzName;
+	}
+
+
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();

@@ -1,0 +1,236 @@
+
+@font-face {
+  font-family: 'HelveticaNeueLTStd-Lt';
+  src: url('fonts/HelveticaNeueLTStd-Lt.eot?#iefix') format('embedded-opentype'),  url('fonts/HelveticaNeueLTStd-Lt.otf')  format('opentype'),
+         url('fonts/Helveticfonts/aNeueLTStd-Lt.woff') format('woff'), url('HelveticaNeueLTStd-Lt.ttf')  format('truetype'), url('HelveticaNeueLTStd-Lt.svg#HelveticaNeueLTStd-Lt') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'RockwellStd';
+  src: url('fonts/RockwellStd.eot?#iefix') format('embedded-opentype'),  url('fonts/RockwellStd.otf')  format('opentype'),
+         url('fonts/RockwellStd.woff') format('woff'), url('fonts/RockwellStd.ttf')  format('truetype'), url('fonts/RockwellStd.svg#RockwellStd') format('svg');
+  font-weight: lighter;
+  font-style: normal;
+}
+@import url('http://fonts.googleapis.com/css?family=Roboto:700');
+
+body{
+	margin: 0;
+	padding: 0;
+    font-family: 'HelveticaNeueLTStd-Lt', sans-serif;
+}
+*{
+    -webkit-box-sizing: border-box; 
+    -moz-box-sizing: border-box;    
+    box-sizing: border-box;         
+}
+.warpper {
+    display: block;
+    margin: 0 auto;
+    padding: 0;
+}
+.container {
+	
+	background-size: cover;
+    display: table;
+    margin: 0 auto;
+    padding: 20px 20px 10px;
+    width: 1200px;
+}
+
+.div-l {
+    float: left;
+}
+.div-r {
+    float: right;
+}
+.div-c {
+    float: center;
+}
+.div-br {
+    float: right bottom ;
+}
+.neev_Logo {
+	background-position : left top
+}
+.razofish_Logo {
+	background-position : right top
+}
+.company_Logo {
+	background-position : center top
+}
+
+.brand-logo {
+    float: left;
+}
+
+header, section, footer {
+    float: left;
+    width: 100%;
+}
+.site-logo {
+    width: 37%;
+}
+.header, .content, .footer {
+    float: left;
+    width: 100%;
+}
+#question_header {
+    color: white;
+    font-family: "RockwellStd",sans-serif;
+    font-size: 35px;
+    font-weight: lighter;
+    margin: 40px 23%;
+    text-align: center;
+    width: 54%;
+}
+.form-content{
+	display: block;
+}
+.form-l {
+    float: left;
+    margin-left: 7%;
+    width: 30%;
+}
+.form-r {
+    float: left;
+    margin-left: 7%;
+    width: 40%;
+}
+.form-control {
+    float: left;
+    margin-bottom: 7px;
+    width: 100%;
+}
+.form-control label {
+    color: #fff;
+    display: block;
+    margin-bottom: 20px;
+}
+.form-control input, .form-control textarea {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border-color: #ccc;
+    border-style: none none solid;
+    border-width: 0 0 1px;
+    color: #515152;
+    font-size: 20px;
+    font-weight: lighter;
+    padding: 7px 0;
+    resize: none;
+    width: 100%;
+}
+.form-control input:focus, .form-control textarea:focus {
+    
+}
+.submit-btn{
+	background: #c5691a; /* Old browsers */
+	background: -moz-linear-gradient(top,  #c5691a 0%, #b05e17 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#c5691a), color-stop(100%,#b05e17)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #c5691a 0%,#b05e17 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #c5691a 0%,#b05e17 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #c5691a 0%,#b05e17 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #c5691a 0%,#b05e17 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c5691a', endColorstr='#b05e17',GradientType=0 ); /* IE6-9 */
+
+	border: 0 none;
+    color: #fff;
+    cursor: pointer;
+    float: right;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    height: 30px;
+    margin-right: 50%;
+    padding: 0 25px;
+}
+.submit-success {
+    background: none repeat scroll 0 0 #24180c;
+    color: #fff;
+    display: none;
+    float: left;
+    font-size: 50px;
+    padding: 20px 0;
+    text-align: center;
+    width: 100%;
+}
+.question_footer {
+    color: white;
+    float: left;
+    font-size: 25px;
+    text-align: center;
+    width: 100%;
+}
+.question_thankyou {
+    color: green;
+    float: left;
+    font-size: 25px;
+    text-align: center;
+    width: 100%;
+}
+.footer {
+    color: #5f5f5f;
+    font-size: 12px;
+    margin-top: 50px;
+}
+.footer a {
+    color: #5f5f5f;
+    text-decoration: none;
+}
+.ui-widget-content {
+    background: none repeat scroll 0 0 #717373;
+    height: 1px;
+    margin-bottom: 20px;
+}
+.ui-slider {
+    position: relative;
+    text-align: left;
+}
+.ui-slider .ui-slider-range {
+    display: block;
+    height: 7px;
+    position: absolute;
+    top: -3px;
+    z-index: 1;
+}
+.product-slider.ui-slider .ui-slider-range {
+    background: none repeat scroll 0 0 #00c052;
+}
+.service-slider.ui-slider .ui-slider-range {
+    background: none repeat scroll 0 0 #f25c5c;
+}
+.brand-slider.ui-slider .ui-slider-range {
+    background: none repeat scroll 0 0 #3b7bb7;
+}
+.product-slider .ui-slider-handle{
+    background: url("../img/green-arrow.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+.service-slider .ui-slider-handle{
+    background: url("../img/red-arrow.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+.brand-slider .ui-slider-handle{
+    background: url("../img/blue-arrow.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+.ui-slider .ui-slider-handle { 
+    cursor: pointer;
+    height: 8px;
+    margin-left: -0.4em;
+    position: absolute;
+    top: 0.4em;
+    width: 14px;
+    z-index: 2;
+}
+
+.error{
+			display: none;
+			margin-left: 10px;
+}		
+		
+.error_show{
+			color: red;
+			margin-left: 10px;
+}
+		
+input.invalid, textarea.invalid{
+			border: 2px solid red;
+}
