@@ -7,9 +7,12 @@
 
 	<!-- Uncomment and your base-package here: <context:component-scan base-package="s2n.jComp.web"/> -->
 
-	<beans:import resource="classpath:service-context.xml" />
+
 	<annotation-driven />
 	<context:annotation-config />
+	<beans:import resource="classpath:service-conf.xml" />
+	<!-- 1 Uncomment and add your base-package here: -->
+	<context:component-scan base-package="s2n.clz.compile.web" />
 
 	<resources mapping="/res/**" location="/res/" />
 

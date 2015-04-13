@@ -8,10 +8,11 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Code Compete</title>
+		<title>Code Questions</title>
 	</head> 
 	<body>
 	
 	<a href=q.jsp?q=q1>Question 1</a>
+	<br>Web app to ask questions in Java, then compile and test your answers
 	</body>
 </html>

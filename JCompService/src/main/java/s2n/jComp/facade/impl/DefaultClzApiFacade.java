@@ -22,39 +22,52 @@ public class DefaultClzApiFacade implements ClzApiFacade {
 	@Override
 	public Result compileAndTest(String code, String name, String src) {
 		Result result = new Result();
+		String loc = "1";
+		System.out.println("compileAndTest At " + new java.util.Date());
+		System.out.println("Got code \n" + src + "\n");
+		System.out.println("code " + code);
+		System.out.println("name " + name);
 		try {
 			result.setCompileStatus(true);
 			CodeQuestion cq = compilerService.getQuestionByCode(code, result);
+			loc = "2";
 			if(result.isCompileStatus() == false || cq == null){
 				result.setCompileStatus(false);//small change that cq not found but status not set to false
 				return result;
 			}
+			loc = "3";
 			String clz = cq.getValidatorClzName();
 			SrcCodeValidator vali = SrcCodeValidators.getInstance().get(clz, result);
+			loc = "4";
 			if(result.isCompileStatus() == false || vali == null){
 				result.setCompileStatus(false);
 				return result;
 			}
+			loc = "5";
 			vali.validate(src, result);
 			if(result.isCompileStatus() == false){
 				return result;
 			}
 			//validate
 			//get class
+			loc = "6";
 			Class clzz = this.compilerService.getClass(src, name, result);
 			if(result.isCompileStatus() == false || clzz == null){
 				result.setCompileStatus(false);
 				return result;
 			}
+			loc = "7";
 			//test
+			result.setTestStatus(true);
 			this.testService.runTests(clzz, result, cq);
+			loc = "8";
 			if(result.isTestStatus() == false){
 				return result;
 			}
 			result.setStatus(true);
 		} catch (Throwable e) {
 			logger.warn("Errors in facade " + e, e);
-			result.appendCompileErrors("Errors " + e + "\n");
+			result.appendCompileErrors("Errors " + e + ", Location :" + loc + "\n");
 			result.setStatus(false);
 			result.setCompileStatus(false);
 		}
@@ -94,5 +107,8 @@ public class DefaultClzApiFacade implements ClzApiFacade {
 		}
 		return qd;
 	}
-
+	
+	public static String getVersion(){
+		return "1";
+	}
 }

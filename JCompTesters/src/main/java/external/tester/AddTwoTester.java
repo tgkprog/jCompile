@@ -24,7 +24,7 @@ public class AddTwoTester implements Tester{
 			String r = m.invoke(o, 1, 8) + "";
 			int rtn = Integer.parseInt(r);
 			if(rtn != 9){
-				msg = "Add gave " + rtn;
+				msg = "Add (1 + 8) gave " + rtn;
 				MiscUtl.fillError(logger, result, null, msg, 2);
 			}
 		} catch (Throwable e) {
@@ -34,3 +34,4 @@ public class AddTwoTester implements Tester{
 	}
 
 }
+

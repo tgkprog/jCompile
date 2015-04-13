@@ -6,4 +6,7 @@
 	<cache name="codeQCache" eternal="false" maxElementsInMemory="5000" overflowToDisk="true" diskPersistent="false" timeToIdleSeconds="300"
 		timeToLiveSeconds="300000" memoryStoreEvictionPolicy="LRU" />
 
+	<cache name="codeQDtoCache" eternal="false" maxElementsInMemory="5000" overflowToDisk="true" diskPersistent="false"
+		timeToIdleSeconds="300" timeToLiveSeconds="300000" memoryStoreEvictionPolicy="LRU" />
+
 </ehcache>

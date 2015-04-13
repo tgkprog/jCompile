@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
  <!DOCTYPE html>
- 
+<%String questionCode = request.getParameter("q");
+
+
+String context = request.getContextPath();
+%> 
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -9,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
   
-    <title>NPS Review Form</title>
+    <title>Wite Code </title>
     <link href="res/css/style.css" rel="stylesheet">
     <script src="res/js/jquery.min.js"></script>
     <script src="res/js/jquery-ui.js"></script>
@@ -22,8 +26,11 @@
   <body onload="fetchQuestionDetails()">
     <div class="warpper">
       <div class="container">
-        <header>
-          <div class="site-logo div-l"><a href=""><img src="resources/img/logo.png" alt="Logo" border="0"></a></div>
+        <header><% // TODO move to header
+        %>
+          <div class="site-logo div-l"> <img src="res/img/ThemeProg.jpg" alt="Logo" border="0">
+          <br>Click 'Check Ajax' and then scroll down.
+          </div>
 
 
         </header>
@@ -36,26 +43,45 @@
 		</section>	
 		
 		<section>
+		<hr><br>
           <div class="content">
-            <h2 class="we-try-to-provide">We try to provide you the best in class do tell us how to get better</h2>
-            <form>
+            
+            <form name=userInput action="<%= context %>/api/ans"  method=POST >
               <div class="form-content">
                 <div class="form-l">
                   <div class="form-control">
-                    <input size="50" type="text" name="clzName" value="" placeholder="Full class name like com.my.Adder">
+                    Class name of code <input size="50" type="text" name="clzName"  placeholder="Full class name like com.my.Adder"
+                     value="">
                   </div>
                  
                   <div class="form-control">
-                    <textarea name="ans" id="ans" placeholder="Your code" rows=12 cols=110></textarea>
+                    Code : <textarea name="ans" id="ans" placeholder="Your code" rows=6 cols=210></textarea>
+                    <br>Sample
+                    <pre>
+                                     
+public class Adder{ 
+	
+    public int add(int i, int y){
+    	
+    	return i+y;
+    	
+    }
+ }</pre>
                   </div>
                 </div>
                 
               </div>
               <div class="submit-success"><span>Thank You <br></span></div>
-              <p class="you-make-our">Submit okay!</p>
-              <div class="form-content div-r"><button type="" class="submit-btn">Submit</button></div>
+              <br>
+               <input type=button onclick='submitQuestion()' value="Check Ajax"> 
+               &nbsp;  <input type=submit  value="See raw Json response"> 
+              </div>
             </form>
           </div>
+          <br>Result:
+          <div id='question_thankyou' class='question_thankyou' ></div>
+          <br>
+          <div id='dbg1' style="display : none;"></div>
         </section>
         
         
@@ -63,21 +89,21 @@
 		<footer>	
           <div class="footer">
             <div class="div-l">Copyright © 2015 All rights reserved by Tushar Kapila, sel2in</div>
-            <div class="div-r"><a href="">Terms of Use</a> | <a href="">Privacy Statement</a> </div>
+            <div class="div-r"><a href="">Terms of Use</a> | <a href="">Privacy Statement</a> 
+            <br>
+            Build 13 Facade : <%= s2n.jComp.facade.impl.DefaultClzApiFacade.getVersion() %>.
+                        </div>
           </div>
         </footer>
        </div>
       </div>
       
       <%
-	String questionCode = request.getParameter("q");
 	
-	
-	String context = request.getContextPath();
 	if(questionCode == null || questionCode.length() ==0){
 %>
 	
-	<div id="errorNoSid">
+	<div id="errorNoSid" style="display: none">
 
 	Bad or missing html <a href=http://sel2in.com />Support</a>
 	</div>
@@ -115,28 +141,25 @@ var contextPath = "<%= context %>";
 
 function fetchQuestionDetails(){
 	$.ajax({
-	url: contextPath + "/q/" + questionCode,
+	url: contextPath + "/api/q/" + questionCode,
 	context: document.body,
 	data : "questionCode=" + questionCode ,
 	dataType : "json"
 	}).success(function(data, txtSt, jqHr) {
 		try{
 			questionObj = data;
-			if(questionObj.errorNo == 0){
+			
 				//alert(questionObj.body2);
 				setInnerHtmlToObj(questionObj.summary, "question_header");
 				setInnerHtmlToObj(questionObj.details, "body1");
 				//setInnerHtmlToObj(questionObj.footer, "question_footer");
 				//setInnerHtmlToObj(questionObj.logo, "company_Logo");
 				
-			}
-			else {
-				$('.question_header').css("color","red");				
-				setInnerHtmlToObj("Could not load", "question_header");
-			}
 			
 		}catch(e){
-			
+			$('.question_header').css("color","red");				
+			setInnerHtmlToObj("Could not load", "question_header");
+		
 		}
 	}).error(function (jqXHR, textStatus, errorThrown){
 		setInnerHtmlToObj("Network or Server Error", "question_header");
@@ -152,28 +175,33 @@ function submitQuestion(){
 
 	var ans = document.userInput.ans.value;
 	var cName = document.userInput.clzName.value;
-	dbg("firstname " +fname, 0);
+	dbg("cName " + cName, 0);
 	
-	var dataString = 'src='+ ans + '&name=' + cName + '&code=' + questionCode + '&';
+	var dataString =  'name=' + escape(cName) + '&code=' + escape(questionCode) +  '&src='+ encodeURIComponent(ans) + '&';
+	//alert(dataString);
 	$.ajax({
-	url: contextPath + "/ans",
+	method : "POST",	
+	url: contextPath + "/api/ans",
 	context: document.body,
 	data : dataString,
 	dataType : "json"
 	}).success(function(data, txtSt, jqHr) {
 		try{
 			r = data;
-			s = "Compile errors :" + r.compileErrors + "<br>Compile Msg :" +  r.compileMsgs +
-			  "Test errors :" + r.testErrors + "<br>Msgs " + r.testMsgs ;
+			s = "At " + new Date() 
+			+ "<br>Status : " + r.status
+			+ "<br>Compile :" + r.compileStatus + 
+			"<br>Compile errors :" + r.compileErrors + "<br>Compile Msg :" +  r.compileMsgs +
+			  "<hr><br>Test  :" + r.testStatus + " errors " + r.testErrors + "<br>Msgs " + r.testMsgs + "<hr>";
 			s = s.replace("\n", "<br>\n" );//replace all TODO
-			setInnerHtmlToObj(s  , "question_thankyou");
+			setInnerHtmlToObj(s , "question_thankyou");
 			if(r.status) {
 				//document.userInput.reset();
 				$('.question_thankyou').css("color","green");
 
 			} else {
 				$('.question_thankyou').css("color","red");
-				setInnerHtmlToObj(r.error, "question_thankyou");
+				//setInnerHtmlToObj(r.error, "question_thankyou");
 			}
 			
 		}catch(e){
@@ -189,5 +217,7 @@ function submitQuestion(){
 
 
 </script>
+<br>
+
   </body>
 </html>

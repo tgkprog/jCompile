@@ -17,6 +17,9 @@ public class DefaultClazzRunTestsService implements ClazzRunTestsService {
 			Tester tester = getTester(result, cq);
 			msg = "Run tests";
 			tester.test(targetClz, result);
+			if(result.isTestStatus()){
+				result.appendTestMsgs("Tested okay (1+8)");
+			}
 		}catch(Throwable e){
 			result.appendTestErrors("Error ").appendTestErrors(e.toString()).appendTestErrors(" at ")
 			.appendTestErrors(msg);

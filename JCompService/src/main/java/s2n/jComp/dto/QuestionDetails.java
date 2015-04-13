@@ -30,6 +30,13 @@ public class QuestionDetails  implements Serializable {
 	public void setDetails(String details) {
 		this.details = details;
 	}
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("QuestionDetails [code=").append(code).append(", summary=").append(summary).append(", details=").append(details)
+				.append("]");
+		return builder.toString();
+	}
 	
 	
 
