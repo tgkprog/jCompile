@@ -29,8 +29,8 @@ import s2n.jComp.entities.ByteArrayJavaClass;
 import s2n.jComp.entities.CodeQuestion;
 import s2n.jComp.entities.StringBuilderJavaSource;
 import s2n.jComp.services.ClazzCompilerService;
-import s2n.jComp.services.MiscUtl;
 import s2n.jComp.services.RamClassLoader;
+import s2n.jComp.services.utl.MiscUtl;
 
 @Service
 public class DefaultClazzCompilerService implements ClazzCompilerService {
@@ -38,8 +38,8 @@ public class DefaultClazzCompilerService implements ClazzCompilerService {
 
 	// if not thread safe can move to a ThreadLocal or put in spring Thread scope
 	private JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-	@Autowired
-	@Qualifier(value = "questionsDao")
+	//@Autowired
+	//@Qualifier(value = "questionsDao")
 	private DefaultCodeQuestionDao defaultCodeQuestionDao = null;
 
 	@Override
@@ -58,6 +58,7 @@ public class DefaultClazzCompilerService implements ClazzCompilerService {
 	@Override
 	public Class<?> getClass(String data, final String fullName, Result result) {
 		try {
+			
 			final List<ByteArrayJavaClass> classFileObjects = new ArrayList<>();
 			DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<>();
 
@@ -140,6 +141,14 @@ public class DefaultClazzCompilerService implements ClazzCompilerService {
 		StringBuilderJavaSource source = new StringBuilderJavaSource(fullName);
 		source.append(data);
 		return source;
+	}
+
+	public DefaultCodeQuestionDao getDefaultCodeQuestionDao() {
+		return defaultCodeQuestionDao;
+	}
+
+	public void setDefaultCodeQuestionDao(DefaultCodeQuestionDao defaultCodeQuestionDao) {
+		this.defaultCodeQuestionDao = defaultCodeQuestionDao;
 	}
 
 }

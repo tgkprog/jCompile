@@ -26,5 +26,15 @@
 	<cache:annotation-driven />
 	<beans:bean id='cacheManager' class='org.springframework.cache.ehcache.EhCacheCacheManager' p:cacheManager-ref='ehcache'/>
 	<beans:bean id='ehcache' class='org.springframework.cache.ehcache.EhCacheManagerFactoryBean' p:configLocation='classpath:ehcache-service.xml' p:shared='true'/>
-	<beans:bean id='classService' class='s2n.jComp.services.impl.DefaultClazzCompilerService' />
+	<beans:bean id='classService' class='s2n.jComp.services.impl.DefaultClazzCompilerService' >
+	<beans:property name="efaultCodeQuestionDao" ref="questionsDao"></beans:property>
+	</beans:bean>
+	
+	<beans:bean id='testService' class='s2n.jComp.services.impl.DefaultClazzRunTestsService' />
+	
+	 
+
+
+	
+	
 </beans:beans>

@@ -1,4 +1,4 @@
-package s2n.jComp.services;
+package s2n.jComp.services.utl;
 
 import org.apache.logging.log4j.Logger;
 

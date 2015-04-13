@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS `CodeQuestion` (
   `question` Text DEFAULT NULL,
   `rating` int(11) DEFAULT NULL,  
   `tester_class_name` varchar(255) DEFAULT NULL,
-   `test_properties` Text DEFAULT NULL
+   `test_properties` Text DEFAULT NULL,
+  `validator_class_name` varchar(400) NOT NULL   
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 

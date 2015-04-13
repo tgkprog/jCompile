@@ -36,6 +36,9 @@ public class CodeQuestion implements Serializable {
 
 	@Column(name = "tester_class_name")
 	private String testClzName;
+	
+	@Column(name = "validator_class_name")
+	private String validatorClzName;
 
 	@Column(name = "test_properties")
 	private String tstProps;
