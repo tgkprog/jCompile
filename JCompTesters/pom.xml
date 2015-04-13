@@ -13,7 +13,7 @@
 	<dependencies>
 	
 	<dependency>
-		<groupId>org.springframework.samples</groupId>
+		<groupId>s2n.jcomp</groupId>
 		<artifactId>JCompService</artifactId>
 		<version>1</version>
     </dependency>

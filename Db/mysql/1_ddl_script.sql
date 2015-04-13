@@ -26,13 +26,14 @@ USE `JCompileDb`;
 -- Table structure for table `CodeQuestions`
 --
 
-DROP TABLE IF EXISTS `CodeQuestions`;
+DROP TABLE IF EXISTS `CodeQuestion`;
 
-CREATE TABLE IF NOT EXISTS `CodeQuestions` (
-`Id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `CodeQuestion` (
+  `Id` int(11) NOT NULL PRIMARY KEY  AUTO_INCREMENT,
+  `question_code` varchar(20) NOT NULL UNIQUE,
   `question_Summary` varchar(2400) NOT NULL,
   `question` Text DEFAULT NULL,
-  `score` int(11) DEFAULT NULL,  
+  `rating` int(11) DEFAULT NULL,  
   `tester_class_name` varchar(255) DEFAULT NULL,
    `test_properties` Text DEFAULT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;

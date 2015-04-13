@@ -1,37 +1,51 @@
 package s2n.jComp.dto;
 
-public class Result {
+import java.io.Serializable;
 
-	private StringBuilder compileErrors;
-	private StringBuilder compileMsgs;
+public class Result implements Serializable {
+
+	/**
+	 * Only change if you want saved/ existing to be in-compatible. Example: if u have changed or removed a property.
+	 */
+	private static final long serialVersionUID = 1L;
+	private StringBuilder compileErrors = new StringBuilder();
+	private StringBuilder compileMsgs = new StringBuilder();
 	private boolean status;
 	private boolean compileStatus;
 	private boolean testStatus;
-	private StringBuilder testErrors;
-	private StringBuilder testMsgs;
+	private StringBuilder testErrors = new StringBuilder();
+	private StringBuilder testMsgs = new StringBuilder();
 
 	public Result() {
 
 	}
 
-	public StringBuilder getCompileErrors() {
-		return compileErrors;
+	public String getCompileErrors() {
+		return compileErrors.toString();
 	}
 
-	public void setCompileErrors(StringBuilder compileErrors) {
-		this.compileErrors = compileErrors;
+	public void setCompileErrors(String s) {
+		compileErrors.delete(0, compileErrors.length());
+		compileErrors.append(s);
 	}
 
-	public void appedCompileErrors(String mErrors) {
+	public Result appendCompileErrors(String mErrors) {
 		this.compileErrors.append(mErrors);
+		return this;
 	}
 
 	public StringBuilder getCompileMsgs() {
 		return compileMsgs;
 	}
 
-	public void setCompileMsgs(StringBuilder compileMsgs) {
-		this.compileMsgs = compileMsgs;
+	public void setCompileMsgs(String s) {
+		compileMsgs.delete(0, compileMsgs.length());
+		compileMsgs.append(s);
+	}
+	
+	public Result appendCompileMsgs(String s) {
+		this.compileMsgs.append(s);
+		return this;
 	}
 
 	public boolean isStatus() {
@@ -62,20 +76,28 @@ public class Result {
 		return testErrors;
 	}
 
-	public void setTestErrors(StringBuilder testErrors) {
-		this.testErrors = testErrors;
+	public void setTestErrors(String s) {
+		testErrors.delete(0, testErrors.length());
+		testErrors.append(s);
 	}
 
-	public void appedTestErrors(String error) {
+	public Result appendTestErrors(String error) {
 		this.testErrors.append(error);
+		return this;
 	}
 
 	public StringBuilder getTestMsgs() {
 		return testMsgs;
 	}
 
-	public void setTestMsgs(StringBuilder testMsgs) {
-		this.testMsgs = testMsgs;
+	public void setTestMsgs(String s) {
+		testMsgs.delete(0, testMsgs.length());
+		testMsgs.append(s);
+	}
+	
+	public Result appendTestMsgs(String s) {
+		this.testMsgs.append(s);
+		return this;
 	}
 
 }

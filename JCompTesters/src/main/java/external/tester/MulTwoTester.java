@@ -4,7 +4,7 @@ import s2n.jComp.dto.Result;
 import s2n.jComp.services.Tester;
 
 
-public class AddTwoTester implements Tester{
+public class MulTwoTester implements Tester{
 
 	@Override
 	public void test(Class<?> clz, Result results) {

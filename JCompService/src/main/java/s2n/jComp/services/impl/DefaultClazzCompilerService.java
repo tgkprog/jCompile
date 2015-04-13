@@ -1,6 +1,7 @@
 package s2n.jComp.services.impl;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,61 +16,124 @@ import javax.tools.JavaFileObject;
 import javax.tools.JavaFileObject.Kind;
 import javax.tools.ToolProvider;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
+
+import s2n.jComp.dao.impl.DefaultCodeQuestionDao;
+import s2n.jComp.dto.Result;
 import s2n.jComp.entities.ByteArrayJavaClass;
+import s2n.jComp.entities.CodeQuestion;
 import s2n.jComp.entities.StringBuilderJavaSource;
 import s2n.jComp.services.ClazzCompilerService;
+import s2n.jComp.services.MiscUtl;
 import s2n.jComp.services.RamClassLoader;
 
+@Service
 public class DefaultClazzCompilerService implements ClazzCompilerService {
-	// if not thread safe can move to a ThreadLocal
-	JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+	private static final Logger logger = LogManager.getLogger(DefaultClazzCompilerServiceTest.class);
+
+	// if not thread safe can move to a ThreadLocal or put in spring Thread scope
+	private JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+	@Autowired
+	@Qualifier(value = "questionsDao")
+	private DefaultCodeQuestionDao defaultCodeQuestionDao = null;
 
 	@Override
-	public Class<?> getClass(String data, String fullName) {
+	@Cacheable(value = "codeQCache")
+	public CodeQuestion getQuestionByCode(String code, Result result) {
+		CodeQuestion cq = null;
+		try {
+			cq = defaultCodeQuestionDao.getByCode(code);
+		} catch (Exception e) {
+			MiscUtl.fillError(logger, result, e, "Question get code :" + code, 1);
+
+		}
+		return cq;
+	}
+
+	@Override
+	public Class<?> getClass(String data, final String fullName, Result result) {
 		try {
 			final List<ByteArrayJavaClass> classFileObjects = new ArrayList<>();
 			DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<>();
 
 			JavaFileManager fileManager = compiler.getStandardFileManager(diagnostics, null, null);
-			fileManager = new ForwardingJavaFileManager<JavaFileManager>(fileManager) {
-				public JavaFileObject getJavaFileForOutput(Location location, final String className, Kind kind, FileObject sibling)
-						throws IOException {
-					if (className.startsWith("s2n.dynamic.")) {
-						ByteArrayJavaClass fileObject = new ByteArrayJavaClass(className);
-						classFileObjects.add(fileObject);
-						return fileObject;
-					} else
-						return super.getJavaFileForOutput(location, className, kind, sibling);
-				}
-			};
-
-			JavaFileObject source = buildSource(data, fullName);
-			JavaCompiler.CompilationTask task = compiler.getTask(null, fileManager, diagnostics, null, null, Arrays.asList(source));
-			Boolean result = task.call();
-
-			for (Diagnostic<? extends JavaFileObject> d : diagnostics.getDiagnostics())
-				System.out.println(d.getKind() + ": " + d.getMessage(null));
-			fileManager.close();
-			if (!result) {
-				System.out.println("Compilation failed.");
-				System.exit(1);
-			}
-			System.out.println("Build 4");
+			clazProcess(data, fullName, result, classFileObjects, diagnostics, fileManager);
 
 			byte[] clzdat = null;
-			for (ByteArrayJavaClass cl : classFileObjects) {
-				// byteCodeMap.put(TST_CLZ_NAME, cl.getBytes());
-				clzdat = cl.getBytes();
+			if (classFileObjects.size() == 0) {
+				// error
+				result.setCompileStatus(false);
+				result.appendCompileErrors("Class not compiled\n");
+				return null;
+			}else if (classFileObjects.size() > 1) {
+				result.appendCompileMsgs("More than 1 class found, tryig with all\n");
 			}
 			RamClassLoader loader = new RamClassLoader(null);
-			Class clz = loader.defineClass(fullName, clzdat);
-			Object obj = clz.newInstance();
-			System.out.println(obj);
-
+			for (ByteArrayJavaClass cl : classFileObjects) {
+				// byteCodeMap.put(TST_CLZ_NAME, cl.getBytes());
+				try {
+					clzdat = cl.getBytes();
+					Class<?> clz = loader.defineClass(fullName, clzdat);
+					result.setCompileStatus(true);
+					return clz;
+				} catch (Throwable e) {
+					logger.info("Define class Error will try next " + e);;
+				}
+			}
+			result.appendCompileErrors("Class not defined \n");
+			return null;
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			logger.warn("get Class :" + ex, ex);
+			result.appendCompileErrors("Err :" + ex + " \n");
 		}
 		return null;
+	}
+
+	private void clazProcess(String data, final String fullName, Result result, final List<ByteArrayJavaClass> classFileObjects,
+			DiagnosticCollector<JavaFileObject> diagnostics, JavaFileManager fileManager) throws IOException {
+		fileManager = new ForwardingJavaFileManager<JavaFileManager>(fileManager) {
+			public JavaFileObject getJavaFileForOutput(Location location, final String className, Kind kind, FileObject sibling)
+					throws IOException {
+				if (className.startsWith(fullName)) {
+					ByteArrayJavaClass fileObject = new ByteArrayJavaClass(className);
+					classFileObjects.add(fileObject);
+					return fileObject;
+				} else
+					return super.getJavaFileForOutput(location, className, kind, sibling);
+			}
+		};
+
+		JavaFileObject source = buildSource(data, fullName);
+		StringWriter sw = new StringWriter();
+		JavaCompiler.CompilationTask task = compiler.getTask(sw, fileManager, diagnostics, null, null, Arrays.asList(source));
+		Boolean compileResult = task.call();
+		final String sws = sw.toString();
+		if (sws != null && sws.length() > 0) {
+			result.appendCompileMsgs("Compile Messages\n");
+			result.appendCompileMsgs(sws + "\n");
+		}
+		List<Diagnostic<? extends JavaFileObject>> dia = diagnostics.getDiagnostics();
+		if (dia.size() > 0) {
+			result.appendCompileMsgs("Compile Diagnostics:\n");
+
+			for (Diagnostic<? extends JavaFileObject> d : dia) {
+				final String ss = d.getKind() + ": " + d.getMessage(null);
+				logger.trace(ss);
+				result.appendCompileMsgs(ss + "\n");
+			}
+		}
+		fileManager.close();
+		result.setCompileStatus(compileResult);
+		if (!compileResult) {
+			result.appendCompileErrors("Compilation failed.");
+
+		}
+		System.out.println("Build 4");
 	}
 
 	private JavaFileObject buildSource(String data, String fullName) {
