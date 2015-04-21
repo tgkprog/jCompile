@@ -43,8 +43,8 @@ public class DefaultClazzCompilerServiceTest {
 		CodeQuestion cq = service.getQuestionByCode("q1", result);
 		assertNotNull("Get CQ By Code q1 :", cq);
 		System.out.println("Cq :" + cq);
-		
-		Class<?> adder = service.getClass(src1, "s2n.dynamic.s1.AddTwo" , result);
+
+		Class<?> adder = service.getClass(src1, "s2n.dynamic.s1.AddTwo", result);
 		assertNotNull("Adder :", adder);
 		Object obj = adder.newInstance();
 		System.out.println("Object : " + obj);
@@ -52,6 +52,12 @@ public class DefaultClazzCompilerServiceTest {
 		Object r = m.invoke(obj, 1, 2);
 		int rtn = Integer.parseInt(r + "");
 		assertEquals("Adding 1 and 2 ", 3, r);
+		cq = service.getQuestionByCode("q1", result);
+		cq = service.getQuestionByCode("q2", result);
+		cq = service.getQuestionByCode("q1", result);
+		cq = service.getQuestionByCode("q2", result);
+		cq = service.getQuestionByCode("q1", result);
+		System.out.println("Bye 2");
 	}
 
 	String getSrc1() {

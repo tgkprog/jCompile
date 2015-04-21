@@ -36,13 +36,15 @@ public class DefaultClazzCompilerService implements ClazzCompilerService {
 
 	// if not thread safe can move to a ThreadLocal or put in spring Thread scope
 	private JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-	//@Autowired
-	//@Qualifier(value = "questionsDao")
+	// @Autowired
+	// @Qualifier(value = "questionsDao")
 	private CodeQuestionDao codeQuestionDao = null;
 
 	@Override
 	@Cacheable(value = "codeQCache")
 	public CodeQuestion getQuestionByCode(String code, Result result) {
+		logger.info("in service q " + code);
+		System.out.println("In service q " + code);
 		CodeQuestion cq = null;
 		try {
 			cq = codeQuestionDao.getByCode(code);
@@ -56,7 +58,7 @@ public class DefaultClazzCompilerService implements ClazzCompilerService {
 	@Override
 	public Class<?> getClass(String data, final String fullName, Result result) {
 		try {
-			
+
 			final List<ByteArrayJavaClass> classFileObjects = new ArrayList<>();
 			DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<>();
 
@@ -69,7 +71,7 @@ public class DefaultClazzCompilerService implements ClazzCompilerService {
 				result.setCompileStatus(false);
 				result.appendCompileErrors("Class not compiled\n");
 				return null;
-			}else if (classFileObjects.size() > 1) {
+			} else if (classFileObjects.size() > 1) {
 				result.appendCompileMsgs("More than 1 class found, tryig with all\n");
 			}
 			RamClassLoader loader = new RamClassLoader(null);
@@ -81,7 +83,8 @@ public class DefaultClazzCompilerService implements ClazzCompilerService {
 					result.setCompileStatus(true);
 					return clz;
 				} catch (Throwable e) {
-					logger.info("Define class Error will try next " + e);;
+					logger.info("Define class Error will try next " + e);
+					;
 				}
 			}
 			result.appendCompileErrors("Class not defined \n");
