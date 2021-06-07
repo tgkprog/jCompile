@@ -10,7 +10,7 @@
 		<!-- Spring Security -->
 		<spring.security.version>3.2.5.RELEASE</spring.security.version>
 		<!-- Spring Framework -->
-		<spring.version>4.1.4.RELEASE</spring.version>
+		<spring.version>4.3.21.RELEASE</spring.version>
 
 		<plugin.clean.version>2.5</plugin.clean.version>
 		<plugin.compiler.version>2.3.2</plugin.compiler.version>
