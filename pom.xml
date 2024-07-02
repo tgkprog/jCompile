@@ -10,7 +10,10 @@
 		<!-- Spring Security -->
 		<spring.security.version>3.2.5.RELEASE</spring.security.version>
 		<!-- Spring Framework -->
+
 		<spring.version>5.2.22.RELEASE</spring.version>
+
+		
 
 		<plugin.clean.version>2.5</plugin.clean.version>
 		<plugin.compiler.version>2.3.2</plugin.compiler.version>
@@ -25,7 +28,7 @@
 		<junit.version>4.13.1</junit.version>
 		<mysql-connector-java.version>5.1.25</mysql-connector-java.version>
 		<!-- Log4j -->
-		<log4j.version>2.13.2</log4j.version>
+		<log4j.version>2.17.1</log4j.version>
 		<mockito-all.version>1.9.5</mockito-all.version>
 		<javax.mail.version>1.4</javax.mail.version>
 		<javax.activation.version>1.1.1</javax.activation.version>
